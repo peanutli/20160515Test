@@ -17,5 +17,8 @@
     // Drawing code
 }
 */
+- (void)drawRect:(CGRect)rect{
+    NSLog(@"drawRectMethod");
+}
 
 @end
