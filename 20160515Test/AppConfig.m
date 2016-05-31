@@ -8,6 +8,34 @@
 
 #import "AppConfig.h"
 
+@interface AppConfig()
+{
+    @private NSString * AppName;
+    @public NSString * AppNumber;
+    NSString * _title;
+}
+@end
+
 @implementation AppConfig
+
+//@synthesize title = _title;
+
+- (NSInteger)version{
+    return self.version;
+}
+
+- (void)setVersion:(NSInteger)version{
+
+}
+
+- (NSString *)title{
+    return _title;
+}
+
+- (void)setTitle:(NSString *)title{
+    if(_title != title){
+        _title = [title copy];
+    }
+}
 
 @end
