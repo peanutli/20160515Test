@@ -12,7 +12,7 @@
 #import "AppView.h"
 #import "Masonry.h"
 
-@interface ViewController (){
+@interface ViewController ()<UIWebViewDelegate>{
     AppView * appView;
     UIView * view;
 }
@@ -23,6 +23,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    __strong NSString * strA = @"abc";
+    NSMutableString * strB = [NSMutableString stringWithFormat:@"abcd"];
+    strA = strB;
+    NSLog(@"strA:%@",strA);
+    [strB appendString:@"mg"];
+    NSLog(@"strA:%@",strA);
+    
+    NSString *  strC = @"abc";
+    NSMutableString * strD = [NSMutableString stringWithFormat:@"abcd"];
+    strC = [strD copy];
+    NSLog(@"strA:%@",strC);
+    [strD appendString:@"mg"];
+    NSLog(@"strA:%@",strC);
+
+    
+    
+    
+    
+    UIWebView * webView = [[UIWebView alloc]init];
+    webView.frame = self.view.frame;
+    [self.view addSubview:webView];
+    webView.delegate = self;
+  //  NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.yizhengyun.com.cn/sw_taipingyang/"]];
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.yizhengyun.com.cn/sw_taipingyang/"] cachePolicy:NSURLRequestReturnCacheDataDontLoad timeoutInterval:600.f];
+    [webView loadRequest:request];
+    request.timeoutInterval = 150.0f;
+    NSString *tmpDir = NSTemporaryDirectory();
+    NSLog(@"tmpDir:%@",tmpDir);
+    
     
     view = [[UIView alloc]init];
     [self.view addSubview:view];
@@ -45,6 +75,10 @@
  
     // Do any additional setup after loading the view, typically from a nib.
 }
+
+//- (void)webViewDidFinishLoad:(UIWebView *)webView{
+//    
+//}
 
 - (void)ldcupdateViewConstraints{
     [view mas_updateConstraints:^(MASConstraintMaker *make) {
