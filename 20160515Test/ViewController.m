@@ -11,6 +11,8 @@
 #import <objc/runtime.h>
 #import "AppView.h"
 #import "Masonry.h"
+#import "CreateObserve.h"
+#import "CreateSubject.h"
 
 @interface ViewController ()<UIWebViewDelegate>{
     AppView * appView;
@@ -23,7 +25,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    /*
+    观察者模式
+     */
+    CreateSubject *subject = [[CreateSubject alloc]init];
+    for (NSInteger i = 0; i<5; i++) {
+        CreateObserve * observe =  [[CreateObserve alloc]initWithName:[NSString stringWithFormat:@"%ld",i] createSubject:subject];
+        [subject addObserverItem:observe];
+    }
+    subject.createSubjectState = @"hello World";
+    [subject notify];
     __strong NSString * strA = @"abc";
     NSMutableString * strB = [NSMutableString stringWithFormat:@"abcd"];
     strA = strB;
@@ -37,9 +48,10 @@
     NSLog(@"strA:%@",strC);
     [strD appendString:@"mg"];
     NSLog(@"strA:%@",strC);
+    
+    subject.createSubjectState = @"FMN";
+    [subject notify];
 
-    
-    
     
     
     UIWebView * webView = [[UIWebView alloc]init];
@@ -75,6 +87,7 @@
  
     // Do any additional setup after loading the view, typically from a nib.
 }
+
 
 //- (void)webViewDidFinishLoad:(UIWebView *)webView{
 //    
